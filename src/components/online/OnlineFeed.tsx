@@ -1,8 +1,25 @@
-import { Sparkles, Truck, Tag, ExternalLink } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Sparkles, Truck, ExternalLink } from 'lucide-react';
 import { onlineDeals } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 
+const marketplaces = ['Todos', 'Mercado Livre', 'Amazon', 'Shopee', 'AliExpress', 'Kabum'];
+
 export function OnlineFeed() {
+  const [selectedFilter, setSelectedFilter] = useState('Todos');
+
+  const filteredDeals = useMemo(() => {
+    if (selectedFilter === 'Todos') {
+      return onlineDeals;
+    }
+    return onlineDeals.filter(deal => deal.marketplace === selectedFilter);
+  }, [selectedFilter]);
+
+  const handleFilterClick = (marketplace: string) => {
+    setSelectedFilter(marketplace);
+    console.log('Marketplace filter:', marketplace);
+  };
+
   return (
     <section className="pb-24">
       {/* Header */}
@@ -16,12 +33,13 @@ export function OnlineFeed() {
       
       {/* Marketplace filters */}
       <div className="flex gap-2 px-4 py-3 overflow-x-auto hide-scrollbar">
-        {['Todos', 'Mercado Livre', 'Amazon', 'Shopee', 'AliExpress', 'Kabum'].map((mp, i) => (
+        {marketplaces.map((mp) => (
           <button
             key={mp}
+            onClick={() => handleFilterClick(mp)}
             className={cn(
-              "flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all",
-              i === 0 
+              "flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all active:scale-95",
+              selectedFilter === mp 
                 ? "bg-primary text-primary-foreground shadow-soft" 
                 : "bg-muted text-muted-foreground hover:bg-secondary hover:text-secondary-foreground"
             )}
@@ -33,7 +51,11 @@ export function OnlineFeed() {
       
       {/* Deals Grid */}
       <div className="grid grid-cols-2 gap-3 px-4 py-2">
-        {onlineDeals.map((deal, index) => (
+        {filteredDeals.length === 0 ? (
+          <div className="col-span-2 py-12 text-center">
+            <p className="text-muted-foreground">Nenhuma oferta encontrada para {selectedFilter}</p>
+          </div>
+        ) : filteredDeals.map((deal, index) => (
           <div
             key={deal.id}
             className={cn(
@@ -81,9 +103,14 @@ export function OnlineFeed() {
                   <span className="text-lg font-bold text-primary">
                     R$ {deal.price.toFixed(2).replace('.', ',')}
                   </span>
-                  <button className="p-1.5 rounded-full bg-primary hover:bg-gold-dark transition-colors">
+                  <a 
+                    href={`https://www.google.com/search?q=${encodeURIComponent(deal.name + ' ' + deal.marketplace)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-full bg-primary hover:bg-gold-dark transition-colors"
+                  >
                     <ExternalLink className="w-3.5 h-3.5 text-primary-foreground" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

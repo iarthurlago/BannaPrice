@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export function SearchHeader() {
+interface SearchHeaderProps {
+  onSearch?: (query: string) => void;
+}
+
+export function SearchHeader({ onSearch }: SearchHeaderProps) {
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    if (query.trim()) {
+      console.log('Search term:', query);
+      onSearch?.(query);
+    }
+  }, [query, onSearch]);
 
   return (
     <header className="sticky top-0 z-40 bg-card/95 backdrop-blur-md border-b border-border px-4 py-3">

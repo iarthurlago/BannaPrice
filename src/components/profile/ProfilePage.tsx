@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { 
   User, 
   MapPin, 
@@ -11,7 +12,8 @@ import {
   Zap,
   Check,
   LogOut,
-  Settings
+  Settings,
+  Sun
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -22,14 +24,35 @@ const accountItems = [
   { icon: CreditCard, label: 'Pagamentos', description: 'Cartões e Pix' },
 ];
 
-const settingsItems = [
-  { icon: Bell, label: 'Notificações', description: 'Alertas de preço e ofertas' },
-  { icon: Moon, label: 'Modo escuro', description: 'Desativado', toggle: true },
-  { icon: Shield, label: 'Privacidade', description: 'Dados e permissões' },
-  { icon: HelpCircle, label: 'Suporte', description: 'Ajuda e contato' },
-];
-
 export function ProfilePage() {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return document.documentElement.classList.contains('dark');
+  });
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    console.log('Dark mode:', !isDarkMode);
+  };
+
+  const handleMenuClick = (label: string) => {
+    console.log('Menu clicked:', label);
+  };
+
+  const settingsItems = [
+    { icon: Bell, label: 'Notificações', description: 'Alertas de preço e ofertas' },
+    { icon: isDarkMode ? Sun : Moon, label: 'Modo escuro', description: isDarkMode ? 'Ativado' : 'Desativado', toggle: true },
+    { icon: Shield, label: 'Privacidade', description: 'Dados e permissões' },
+    { icon: HelpCircle, label: 'Suporte', description: 'Ajuda e contato' },
+  ];
+
   return (
     <div className="pb-24">
       {/* Header */}
@@ -111,8 +134,9 @@ export function ProfilePage() {
             return (
               <button
                 key={item.label}
+                onClick={() => handleMenuClick(item.label)}
                 className={cn(
-                  "w-full flex items-center gap-4 p-4 hover:bg-muted transition-colors",
+                  "w-full flex items-center gap-4 p-4 hover:bg-muted active:bg-muted/80 transition-colors",
                   index !== accountItems.length - 1 && "border-b border-border"
                 )}
               >
@@ -138,11 +162,13 @@ export function ProfilePage() {
         <div className="bg-card rounded-2xl shadow-soft overflow-hidden">
           {settingsItems.map((item, index) => {
             const Icon = item.icon;
+            const isToggle = item.toggle;
             return (
               <button
                 key={item.label}
+                onClick={() => isToggle ? toggleDarkMode() : handleMenuClick(item.label)}
                 className={cn(
-                  "w-full flex items-center gap-4 p-4 hover:bg-muted transition-colors",
+                  "w-full flex items-center gap-4 p-4 hover:bg-muted active:bg-muted/80 transition-colors",
                   index !== settingsItems.length - 1 && "border-b border-border"
                 )}
               >
@@ -153,9 +179,15 @@ export function ProfilePage() {
                   <p className="text-sm font-medium text-foreground">{item.label}</p>
                   <p className="text-xs text-muted-foreground">{item.description}</p>
                 </div>
-                {item.toggle ? (
-                  <div className="w-10 h-6 rounded-full bg-muted relative">
-                    <div className="absolute left-1 top-1 w-4 h-4 rounded-full bg-muted-foreground transition-all" />
+                {isToggle ? (
+                  <div className={cn(
+                    "w-11 h-6 rounded-full relative transition-colors",
+                    isDarkMode ? "bg-primary" : "bg-muted"
+                  )}>
+                    <div className={cn(
+                      "absolute top-1 w-4 h-4 rounded-full transition-all",
+                      isDarkMode ? "right-1 bg-primary-foreground" : "left-1 bg-muted-foreground"
+                    )} />
                   </div>
                 ) : (
                   <ChevronRight className="w-5 h-5 text-muted-foreground" />
