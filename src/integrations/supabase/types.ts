@@ -14,7 +14,177 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          color: string
+          icon: string
+          id: string
+          name: string
+          sort_order: number | null
+        }
+        Insert: {
+          color: string
+          icon: string
+          id?: string
+          name: string
+          sort_order?: number | null
+        }
+        Update: {
+          color?: string
+          icon?: string
+          id?: string
+          name?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
+      gas_stations: {
+        Row: {
+          brand: string
+          created_at: string
+          diesel: number
+          distance: number
+          ethanol: number
+          gasoline: number
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          brand: string
+          created_at?: string
+          diesel: number
+          distance: number
+          ethanol: number
+          gasoline: number
+          id?: string
+          name: string
+          updated_at: string
+        }
+        Update: {
+          brand?: string
+          created_at?: string
+          diesel?: number
+          distance?: number
+          ethanol?: number
+          gasoline?: number
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      online_deals: {
+        Row: {
+          created_at: string
+          discount: number
+          free_shipping: boolean | null
+          id: string
+          image: string
+          marketplace: string
+          name: string
+          original_price: number
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          discount: number
+          free_shipping?: boolean | null
+          id?: string
+          image: string
+          marketplace: string
+          name: string
+          original_price: number
+          price: number
+        }
+        Update: {
+          created_at?: string
+          discount?: number
+          free_shipping?: boolean | null
+          id?: string
+          image?: string
+          marketplace?: string
+          name?: string
+          original_price?: number
+          price?: number
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          discount: number | null
+          distance: number
+          id: string
+          image: string
+          is_bestseller: boolean | null
+          is_featured: boolean | null
+          name: string
+          original_price: number | null
+          price: number
+          store: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          discount?: number | null
+          distance: number
+          id?: string
+          image: string
+          is_bestseller?: boolean | null
+          is_featured?: boolean | null
+          name: string
+          original_price?: number | null
+          price: number
+          store: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          discount?: number | null
+          distance?: number
+          id?: string
+          image?: string
+          is_bestseller?: boolean | null
+          is_featured?: boolean | null
+          name?: string
+          original_price?: number | null
+          price?: number
+          store?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          is_premium: boolean | null
+          location: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          is_premium?: boolean | null
+          location?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          is_premium?: boolean | null
+          location?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
