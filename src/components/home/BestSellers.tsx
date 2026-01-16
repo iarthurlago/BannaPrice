@@ -1,6 +1,7 @@
 import { TrendingUp, MapPin, Loader2 } from 'lucide-react';
 import { useBestSellers } from '@/hooks/useProducts';
 import { cn } from '@/lib/utils';
+import cocaCola2L from '@/assets/coca-cola-2l.png';
 
 export function BestSellers() {
   const { data: products, isLoading } = useBestSellers();
@@ -18,6 +19,14 @@ export function BestSellers() {
   if (!products || products.length === 0) {
     return null;
   }
+
+  // Function to get the correct image for each product
+  const getProductImage = (product: { name: string; image: string }) => {
+    if (product.name.toLowerCase().includes('coca-cola')) {
+      return cocaCola2L;
+    }
+    return product.image;
+  };
 
   return (
     <section className="py-4 pb-24">
@@ -37,7 +46,7 @@ export function BestSellers() {
           >
             <div className="relative">
               <img
-                src={product.image}
+                src={getProductImage(product)}
                 alt={product.name}
                 className="w-full h-28 object-cover"
               />
