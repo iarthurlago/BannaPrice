@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Mail, Lock, ArrowRight, Loader2, Sparkles } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Loader2, Banana } from 'lucide-react';
 import { toast } from 'sonner';
 
 type AuthMode = 'login' | 'register' | 'magic-link';
@@ -87,8 +87,8 @@ export default function Auth() {
       {/* Header */}
       <header className="bg-gradient-gold px-4 pt-12 pb-16 rounded-b-[2rem] text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="w-8 h-8 text-primary-foreground" />
-          <h1 className="text-3xl font-bold text-primary-foreground">Economizar</h1>
+          <Banana className="w-8 h-8 text-primary-foreground" />
+          <h1 className="text-3xl font-bold text-primary-foreground">BanaPrice</h1>
         </div>
         <p className="text-primary-foreground/80">Compare preços e economize mais</p>
       </header>
@@ -201,7 +201,7 @@ export default function Auth() {
       {/* Footer */}
       <div className="p-4 text-center">
         <p className="text-xs text-muted-foreground">
-          Economizar v1.0.0
+          BanaPrice v1.0.0
         </p>
       </div>
     </div>

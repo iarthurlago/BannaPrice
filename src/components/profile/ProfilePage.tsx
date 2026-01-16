@@ -341,7 +341,7 @@ export function ProfilePage() {
       
       {/* App version */}
       <p className="text-center text-xs text-muted-foreground mt-6">
-        Economizar v1.0.0
+        BanaPrice v1.0.0
       </p>
     </div>
   );

@@ -20,8 +20,8 @@ export default function Support() {
     { 
       icon: Mail, 
       label: 'E-mail', 
-      description: 'suporte@economizar.com.br',
-      action: () => window.location.href = 'mailto:suporte@economizar.com.br'
+      description: 'suporte@banaprice.com.br',
+      action: () => window.location.href = 'mailto:suporte@banaprice.com.br'
     },
     { 
       icon: Phone, 
@@ -130,7 +130,7 @@ export default function Support() {
       </div>
 
       <p className="text-center text-xs text-muted-foreground mt-6">
-        Economizar v1.0.0
+        BanaPrice v1.0.0
       </p>
     </div>
   );

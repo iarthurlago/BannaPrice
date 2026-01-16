@@ -1,4 +1,4 @@
-import { MapPin, Bell, Sparkles } from 'lucide-react';
+import { MapPin, Bell, Banana } from 'lucide-react';
 
 export function Header() {
   return (
@@ -19,8 +19,8 @@ export function Header() {
           </button>
           
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-gold shadow-gold">
-            <Sparkles className="w-4 h-4 text-primary-foreground" />
-            <span className="text-xs font-bold text-primary-foreground">Premium</span>
+            <Banana className="w-4 h-4 text-primary-foreground" />
+            <span className="text-xs font-bold text-primary-foreground">BanaPrice</span>
           </div>
         </div>
       </div>
