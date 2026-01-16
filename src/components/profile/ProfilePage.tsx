@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   User, 
   MapPin, 
@@ -31,6 +32,7 @@ const accountItems = [
 ];
 
 export function ProfilePage() {
+  const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const { data: profile, isLoading } = useProfile();
   const updateProfile = useUpdateProfile();
@@ -60,6 +62,22 @@ export function ProfilePage() {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleSettingsClick = (label: string) => {
+    switch (label) {
+      case 'Notificações':
+        navigate('/notifications');
+        break;
+      case 'Privacidade':
+        navigate('/privacy');
+        break;
+      case 'Suporte':
+        navigate('/support');
+        break;
+      default:
+        console.log('Menu clicked:', label);
+    }
   };
 
   const handleMenuClick = (label: string) => {
@@ -278,7 +296,7 @@ export function ProfilePage() {
             return (
               <button
                 key={item.label}
-                onClick={() => isToggle ? toggleDarkMode() : handleMenuClick(item.label)}
+                onClick={() => isToggle ? toggleDarkMode() : handleSettingsClick(item.label)}
                 className={cn(
                   "w-full flex items-center gap-4 p-4 hover:bg-muted active:bg-muted/80 transition-colors",
                   index !== settingsItems.length - 1 && "border-b border-border"
